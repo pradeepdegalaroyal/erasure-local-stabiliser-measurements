@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "erasure-local"
+version = "0.1.0"
+description = "Measurement-reduced erasure recovery on toric and bivariate bicycle codes"
+requires-python = ">=3.10"
+dependencies = ["numpy", "pandas", "matplotlib"]
+authors = [{name = "Degala Chenchupradeep"}]
+license = {text = "MIT"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

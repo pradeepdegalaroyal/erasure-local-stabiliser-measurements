@@ -10,4 +10,4 @@
 - H3: a rank-sufficient subset (`minimal`) needs about 2pn measurements, independent of code family.
 - H4: with syndrome-bit flips (probability q), `local` has a lower logical-failure-plus-false-alarm rate than `full`.
 
-**Success metric.** Mean measured fraction of stabilisers and of syndrome-extraction CNOTs vs. `full`, and logical failure rate, over 4 seeds. Scale: classical simulation of erasure + syndrome linear algebra over GF(2), n = 32 to 144 qubits. No hardware claim.
+**Success metric.** Mean measured fraction of stabilisers and of syndrome-extraction controlled-NOT gates (CNOTs) vs. `full`, and logical failure rate, over 4 seeds. Scale: classical simulation of erasure + syndrome linear algebra over Galois field of two elements, GF(2), n = 32 to 144 qubits. No hardware claim.

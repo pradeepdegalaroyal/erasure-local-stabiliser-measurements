@@ -2,21 +2,27 @@
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-green) ![Python](https://img.shields.io/badge/python-3.11-blue) ![CI](https://github.com/pradeepdegalaroyal/erasure-local-stabiliser-measurements/actions/workflows/ci.yml/badge.svg)
 
-**Abstract.** When a qubit loss or leakage is flagged as an erasure, a decoder only needs the stabilisers that touch the erased qubits. This simulation study quantifies how many stabiliser measurements and syndrome-extraction CNOTs that saves on toric and bivariate-bicycle (BB) codes (n = 32 to 144), and how it behaves when readout bits flip. It is a classical GF(2) simulation; it makes no hardware or quantum-advantage claim.
+**Abstract.** When a qubit loss or leakage is flagged as an erasure, a decoder only needs the stabilisers that touch the erased qubits. This simulation study quantifies how many stabiliser measurements and syndrome-extraction controlled-NOT gates (CNOTs) that saves on toric and bivariate-bicycle (BB) codes (n = 32 to 144), and how it behaves when readout bits flip. It is a classical Galois field of two elements, GF(2) simulation; it makes no hardware or quantum-advantage claim.
 
 ## Motivation and gap
 Logical-qubit experiments on superconducting and neutral-atom devices (Acharya et al., 2023, doi:10.1038/s41586-022-05434-1; Bluvstein et al., 2024, doi:10.1038/s41586-023-06927-3) and low-overhead BB codes (Bravyi et al., 2024, doi:10.1038/s41586-024-07107-7) make erasure-aware decoding relevant. Matsumoto (2027, doi:10.1007/s40314-026-03881-4) formalises that stabilisers irrelevant to erased qubits can be omitted. This repo measures the practical size of that saving per code family and under noisy syndrome bits. See `docs/RESEARCH_GAP.md` and `docs/METHOD.md`.
 
 ## Method
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff', 'background': '#ffffff', 'noteBkgColor': '#ffffff', 'noteTextColor': '#000000', 'actorBkg': '#ffffff', 'actorBorder': '#000000', 'actorTextColor': '#000000', 'signalColor': '#000000', 'signalTextColor': '#000000', 'labelBoxBkgColor': '#ffffff', 'labelTextColor': '#000000', 'clusterBkg': '#ffffff', 'clusterBorder': '#000000'}}}%%
 flowchart LR
-  A[Erase qubits w.p. p, random Pauli] --> B{Policy}
-  B -->|full| C[all stabilisers]
-  B -->|local| D[checks touching erased set]
-  B -->|minimal| E[rank-sufficient subset]
-  C & D & E --> F[flip syndrome bits w.p. q]
-  F --> G[GF2 solve on erased columns]
-  G --> H[logical failure / flagged]
+  A["Erase qubits w.p. p, random Pauli"] --> B{Policy}
+  B --> EL1["full"]
+  EL1 --> C["all stabilisers"]
+  B --> EL2["local"]
+  EL2 --> D["checks touching erased set"]
+  B --> EL3["minimal"]
+  EL3 --> E["rank-sufficient subset"]
+  C & D & E --> F["flip syndrome bits w.p. q"]
+  F --> G["GF2 solve on erased columns"]
+  G --> H["logical failure / flagged"]
+  classDef lbl fill:#ffffff,stroke:#ffffff,color:#000000,font-style:italic;
+  class EL1,EL2,EL3 lbl;
 ```
 Three policies (`full` = standard baseline, `local`, `minimal`) are compared on paired shots; 4 seeds x 150 shots per point.
 
@@ -98,7 +104,7 @@ If you use this code, please cite it (see also `CITATION.cff`):
 }
 ```
 
-MIT license (`LICENSE`).
+Massachusetts Institute of Technology (MIT) license (`LICENSE`).
 
 ## License
 MIT.
